@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html ng-app='app'>
+<head>
+    <script src='../../bower_components/angular/angular.js'></script>
+    <script type="text/javascript">
+        var app = angular.module('app', []);
+
+
+        app.controller("AwesomeController", ['$scope', '$http', function($scope, $http) {
+            $scope.users = [];
+
+            $scope.add_user = function() {
+                $scope.users.push($scope.user);
+                // console.log($scope.users);
+                console.log($scope.users);
+
+                $scope.user = "";
+
+            }
+            $scope.delete_user = function(obj) {
+                console.log(obj);
+                var idx = $scope.users.indexOf(obj);
+                console.log(idx);
+                $scope.users.splice(idx, 1);
+            }
+
+
+
+
+        }]);
+
+
+    </script>
+    <title></title>
+</head>
+<body ng-controller = 'AwesomeController'>
+    <div id='main_wrapper'>
+        <form action='/new' method='post'>
+            First Name: <input type='text' ng-model="user.first_name">
+            Last Name: <input type='text' ng-model="user.last_name">
+            Favorite Language: <input type='text' ng-model="user.fav">
+            <input type='button' ng-click="add_user()" value='create user'>
+        </form>
+
+        <table>
+            <tr>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Favorite Language</th>
+                <th>Actions</th>
+            </tr>
+            <tr ng-repeat = " i in users ">
+                <td>{{i.first_name}}</td>
+                <td>{{i.last_name}}</td>
+                <td>{{i.fav}}</td>
+                <td><input type='button' ng-click="delete_user(i);" value='delete'></td>
+            </tr>
+        </table>
+
+    </div>
+</body>
+
+
+</html>
